@@ -1,0 +1,58 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: RagAssistantApplication
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/ragdb
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  ai:
+    model:
+      chat: google-genai
+      embedding:
+        text: google-genai
+
+    google:
+      genai:
+        # Gemini Chat API authentication
+        api-key: ${GEMINI_API_KEY}
+
+        chat:
+          model: gemini-3.5-flash-lite
+
+        # Gemini Embedding API authentication
+        embedding:
+          api-key: ${GEMINI_API_KEY}
+          text:
+            model: gemini-embedding-001
+            task-type: RETRIEVAL_DOCUMENT
+
+    # PostgreSQL vector database
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        dimensions: 768
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+
+app:
+  rag:
+    force-rebuild: true
+    top-k: 4
+    similarity-threshold: 0.0
+    chunk:
+      size: 800
+      min-chunk-size: 200
+      min-chunk-to-embed: 50
+      max-num-chunks: 8192
+      keep-separator: true
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    com.gen.ai: DEBUG
