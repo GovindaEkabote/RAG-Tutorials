@@ -8,8 +8,10 @@ import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -45,8 +47,9 @@ public class SimpleRagConfiguration {
     }
 
     @Bean
+    @Primary
     public SimpleVectorStore simpleVectorStore(
-            EmbeddingModel embeddingModel,
+            @Qualifier("googleGenAiTextEmbedding") EmbeddingModel embeddingModel,
             TokenTextSplitter tokenTextSplitter,
             RagConfigData ragConfigData) throws IOException {
 

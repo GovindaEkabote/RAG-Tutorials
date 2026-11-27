@@ -1,0 +1,22 @@
+package com.gen.ai.config;
+
+import com.knuddels.jtokkit.api.EncodingType;
+import org.springframework.ai.embedding.BatchingStrategy;
+import org.springframework.ai.embedding.TokenCountBatchingStrategy;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class EmbeddingConfig {
+
+    @Bean
+    public BatchingStrategy customBatchingStrategy() {
+        // Set maxInputTokenCount well below the 30k free tier limit, e.g., 8000
+        // reservePercentage 0.1 reserves 10% buffer
+        return new TokenCountBatchingStrategy(
+                EncodingType.CL100K_BASE,
+                8000,
+                0.1
+        );
+    }
+}
