@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "app.rag")
@@ -15,6 +17,11 @@ public class RagConfigData {
     private double similarityThreshold;
     private ChunkProperties chunk;
     private PdfProperties pdfProperties;
+    private Map<String, String> synonyms;
+    private int radius;
+    private QueryExpansion queryExpansion;
+    private Rerank rerank;
+
 
     @Data
     public static class ChunkProperties {
@@ -35,4 +42,17 @@ public class RagConfigData {
         private int numberOfTopTextLinesToDelete;
         private int numberOfBottomTextLinesToDelete;
     }
+
+    @Data
+    public static class QueryExpansion{
+        private int numberOfQueries;
+    }
+
+    public static class Rerank{
+        private String url;
+        private String apiKey;
+        private String model;
+        private int topN;
+    }
+
 }

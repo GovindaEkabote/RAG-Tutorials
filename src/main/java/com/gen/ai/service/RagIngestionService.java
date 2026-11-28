@@ -116,9 +116,6 @@ public class RagIngestionService {
         vectorStore.add(chunks);
         log.info("Ingested {} into PgVector", chunks.size());
     }
-
-
-
     private List<Document> getDocuments(Resource[] resources){
         List<Document> documents= new ArrayList<>();
         for (Resource pdfResource:resources){

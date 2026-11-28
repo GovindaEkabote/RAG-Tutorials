@@ -4,7 +4,6 @@ package com.gen.ai.config.data;
 public class RagConstant {
 
     private RagConstant(){}
-
     public static  final String PARAGRAPH = "paragraph";
     public static  final String SOURCE = "source";
     public static  final String DOC_TYPE = "doc_type";
